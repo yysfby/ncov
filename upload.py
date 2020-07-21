@@ -12,6 +12,7 @@ import sys
 import getopt
 import argparse
 import os
+import random
 from datetime import datetime
 from apscheduler.schedulers.blocking import BlockingScheduler
 
@@ -23,13 +24,14 @@ class YiQingTong:
         self.password = args.password
         self.cookie_file = args.cookie
         self.message_file = args.message_file
+        self.location = args.location
 
     ##############################
     # Internal Methods #
     ##############################
     def _upload_use_cookie(self):
         cookie = Utils.load_cookie_from_file(self.cookie_file)
-        upload_message = Utils.load_upload_message_file(self.message_file)
+        upload_message = Utils.load_upload_message_file(self.message_file,self.location)
         Utils.upload_ncov_message(cookie, upload_message=upload_message)
 
     def _upload_use_pw(self):
@@ -37,7 +39,7 @@ class YiQingTong:
         print("use username and password to upload message, cookie file is save to " + cookie_file)
         Utils.get_cookie_from_login(self.username, self.password, cookie_file)
         cookie = Utils.load_cookie_from_file(cookie_file)
-        upload_message = Utils.load_upload_message_file(self.message_file)
+        upload_message = Utils.load_upload_message_file(self.message_file,self.location)
         Utils.upload_ncov_message(cookie, upload_message=upload_message)
 
     ##############################
@@ -61,7 +63,8 @@ if __name__ == "__main__":
 
     parser.add_argument('-p', '--password',
                         help='Student Account Password')
-
+    parser.add_argument('-l', '--location',
+                        help='GPS location, s for south school, n for north school, default is s',default='s')
     parser.add_argument(
         "-c", "--cookie", help='Path to the Cookie file')
     parser.add_argument(
@@ -69,11 +72,13 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     upload_task = YiQingTong(args)
-
     scheduler = BlockingScheduler()
-    scheduler.add_job(upload_task.upload, 'cron', hour=8, minute=10)
-    scheduler.add_job(upload_task.upload, 'cron', hour=13, minute=10)
-    scheduler.add_job(upload_task.upload, 'cron', hour=19, minute=14)
+    # 晨检
+    scheduler.add_job(upload_task.upload, 'cron', hour=random.randint(6,11), minute=random.randint(1,59))
+    # 午检
+    scheduler.add_job(upload_task.upload, 'cron', hour=random.randint(12,18), minute=random.randint(1,59))
+    # 晚检
+    scheduler.add_job(upload_task.upload, 'cron', hour=random.randint(19,22), minute=random.randint(1,59))
     scheduler.start()
 
 

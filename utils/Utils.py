@@ -24,12 +24,12 @@ UPLOAD_HEADER = {
     "Origin": "https://xxcapp.xidian.edu.cn",
 }
 
-DEFAULT_UPLOAD_MESSAGE = {
+NORTH_UPLOAD_MESSAGE = {
     "geo_api_info": "{\"type\":\"complete\",\"info\":\"SUCCESS\",\"status\":1,\"VDa\":\"jsonp_324977_\",\"position\":{\"Q\":34.23254,\"R\":108.91516000000001,\"lng\":108.91800,\"lat\":34.23230},\"message\":\"Get ipLocation success.Get address success.\",\"location_type\":\"ip\",\"accuracy\":null,\"isConverted\":true,\"addressComponent\":{\"citycode\":\"029\",\"adcode\":\"610113\",\"businessAreas\":[],\"neighborhoodType\":\"\",\"neighborhood\":\"\",\"building\":\"\",\"buildingType\":\"\",\"street\":\"白沙路\",\"streetNumber\":\"付8号\",\"country\":\"中国\",\"province\":\"陕西省\",\"city\":\"西安市\",\"district\":\"雁塔区\",\"township\":\"电子城街道\"},\"formattedAddress\":\"陕西省西安市雁塔区电子城街道西安电子科技大学北校区\",\"roads\":[],\"crosses\":[],\"pois\":[]}",
-    "area": "陕西省 西安市 长安区",  # 地区
+    "area": "陕西省 西安市 雁塔区",  # 地区
     "city": "西安市",  # 城市
     "province": "陕西省",  # 省份
-    "address": "陕西省西安市长安区电子城街道西安电子科技大学北校区",  # 实际地址
+    "address": "陕西省西安市雁塔区电子城街道西安电子科技大学北校区",  # 实际地址
 }
 
 SOUTH_UPLOAD_MESSAGE = {
@@ -76,7 +76,7 @@ def load_cookie_from_file(cookie_file_path: str):
         return pickle.load(f)
 
 
-def load_upload_message_file(file_path: str):
+def load_upload_message_file(file_path: str,location: str):
     """
     从文件中解析需要提交的信息
     :param file_path: 文件路径
@@ -85,10 +85,16 @@ def load_upload_message_file(file_path: str):
     with open(file_path, "r", encoding='utf8') as f:
         text = f.read()
         upload_message = eval(text)
-        for key, value in SOUTH_UPLOAD_MESSAGE.items():
-            if key not in upload_message:
-                upload_message[key] = value
-        return upload_message
+        if location=="s":
+            for key, value in SOUTH_UPLOAD_MESSAGE.items():
+                if key not in upload_message:
+                    upload_message[key] = value
+            return upload_message
+        elif location=="n":
+            for key, value in NORTH_UPLOAD_MESSAGE.items():
+                if key not in upload_message:
+                    upload_message[key] = value
+            return upload_message
 
 
 def upload_ncov_message(cookie, upload_message):
@@ -99,7 +105,3 @@ def upload_ncov_message(cookie, upload_message):
     else:
         print("上报出现错误!")
         print("错误信息: ", r.json()['m'])
-
-
-if __name__ == '__main__':
-    pass

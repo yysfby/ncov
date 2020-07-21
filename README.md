@@ -1,7 +1,8 @@
 # 西安电子科技大学晨午晚检自动填报工具
 
 ## 注意
-本脚本只内置了北校区的经纬度,**只适用于北校区在校的同学**
+本脚本内置了南校区和北校区的经纬度,**默认定位为南校区**
+
 > 其他地区, 请提交Issue
 ## 项目依赖
 * python >= 3
@@ -27,12 +28,30 @@
 > **脚本自身不记录任何学号和密码信息**
 
 ### 学号密码上报
+
 ```shell script
 python upload.py -u 学号 -p 密码 -f 上报信息的文件路径
 ```
+
+在不指定`-l`参数时默认上报南校区的GPS位置。
+
+如需指定北校区，请使用以下命令
+
+```shell script
+python upload.py -u 学号 -p 密码 -l n -f 上报信息的文件路径
+```
+
 ### cookie上报
 ```shell script
 python upload.py -c cookie路径 -f 上报信息的文件路径
+```
+
+在不指定`-l`参数时默认上报南校区的GPS位置。
+
+如需指定北校区，请使用以下命令
+
+```shell script
+python upload.py -c cookie路径 -l n -f 上报信息的文件路径
 ```
 
 ## 示例
