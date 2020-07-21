@@ -97,7 +97,7 @@ def load_upload_message_file(file_path: str,location: str):
             return upload_message
 
 
-def upload_ncov_message(cookie, upload_message):
+def upload_ncov_message(cookie):
     header = dict(DEFAULT_HEADER.items() | UPLOAD_HEADER.items())
     r = requests.post(UPLOAD_URL, cookies=cookie, headers=header)
     if r.json()['e'] == 0:
