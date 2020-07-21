@@ -6,7 +6,12 @@
 > 其他地区, 请提交Issue
 ## 项目依赖
 * python >= 3
-* requests 库
+* pip
+
+```shell script
+pip install -r requirements.txt
+```
+
 ## 使用方法
 1. 编写填写上传信息，格式如下。
 > python 字典的语法, '#'以后为注释。各个参数与选项皆已列出,每一项都是必填字段
