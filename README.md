@@ -29,7 +29,12 @@ pip install -r requirements.txt
 ```
 2. 上报信息
 
-上报信息有种方式: 
+默认情况下进行定时填报，但如果需要立即进行填报，请加入`-n 1`参数，例如：
+```shell script
+python upload.py -n 1 -c cookie路径 -l n -f 上报信息的文件路径
+```
+
+上报信息有2种方式: 
 * 通过学号和密码提交信息, 系统会自动保存cookie到本地，下一次可以通过cookie上传信息 
 * 凭借已经登录后的cookie提交信息(cookie的优先级大于学号密码)
 > **脚本自身不记录任何学号和密码信息**
