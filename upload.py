@@ -88,13 +88,10 @@ if __name__ == "__main__":
         noon_hour=random.randint(12,18)
         noon_minute=random.randint(1,59)
         print("午检将会在每天{:0>2d}:{:0>2d}填报".format(noon_hour,noon_minute))
-        scheduler.add_job(upload_task.upload, 'cron', hour=random.randint(12,18), minute=random.randint(1,59))
+        scheduler.add_job(upload_task.upload, 'cron', hour=noon_hour, minute=noon_minute)
         # 晚检
         night_hour=random.randint(19,22)
         night_minute=random.randint(1,59)
         print("晚检将会在每天{:0>2d}:{:0>2d}填报".format(night_hour,night_minute))
-        scheduler.add_job(upload_task.upload, 'cron', hour=random.randint(19,22), minute=random.randint(1,59))
+        scheduler.add_job(upload_task.upload, 'cron', hour=night_hour, minute=night_minute)
         scheduler.start()
-
-
-
