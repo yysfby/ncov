@@ -23,7 +23,10 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r ./requirements.txt
-    - name: Run my script
+    - name: 石学舟
       run: |
         python ./upload.py -n 1 -u ${{ secrets.USER_ONE }} -p ${{ secrets.PASS_ONE }} -f ./data/upload.txt
+    - name: 老王
+      run: |
+        python ./upload.py -n 1 -u ${{ secrets.USER_TWO }} -p ${{ secrets.PASS_TWO }} -f ./data/upload.txt
     
