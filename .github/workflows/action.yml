@@ -3,7 +3,7 @@ name: '自动填报晨午晚检 --roccoshi'
 on:
   push:
   schedule:
-     - cron: '0 */2 * * *'
+     - cron: '5 */2 * * *'
 
 
 jobs:
