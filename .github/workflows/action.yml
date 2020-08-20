@@ -35,3 +35,6 @@ jobs:
     - name: 李xx
       run: |
         python ./upload.py -n 1 -u ${{ secrets.USER_FOUR }} -p ${{ secrets.PASS_FOUR }} -f ./data/upload.txt
+    - name: 张xx
+      run: |
+        python ./upload.py -n 1 -u ${{ secrets.USER_FIVE }} -p ${{ secrets.PASS_FIVE }} -f ./d
