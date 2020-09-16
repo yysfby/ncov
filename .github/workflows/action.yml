@@ -13,7 +13,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       with:
-        presist-credentials: false
+        presist-credentials: true
         fetch-depth: 0
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
@@ -23,18 +23,6 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r ./requirements.txt
-    - name: 我
-      run: |
-        python ./upload.py -n 1 -u ${{ secrets.USER_ONE }} -p ${{ secrets.PASS_ONE }} -f ./data/upload.txt
     - name: 姚xx
       run: |
         python ./upload.py -n 1 -u ${{ secrets.USER_TWO }} -p ${{ secrets.PASS_TWO }} -f ./data/upload.txt
-    - name: 洪xx
-      run: |
-        python ./upload.py -n 1 -u ${{ secrets.USER_THREE }} -p ${{ secrets.PASS_THREE }} -f ./data/upload.txt
-    - name: 刘xx
-      run: |
-        python ./upload.py -n 1 -u ${{ secrets.USER_FOUR }} -p ${{ secrets.PASS_FOUR }} -f ./data/upload.txt
-    - name: Lxx
-      run: |
-        python ./upload.py -n 1 -u ${{ secrets.USER_FIVE }} -p ${{ secrets.PASS_FIVE }} -f ./data/upload.txt
